@@ -1,0 +1,166 @@
+openapi: 3.0.3
+info:
+  title: Vet Clinic API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /patients:
+    get:
+      summary: Получить список всех пациентов
+      responses:
+        '200':
+          description: Список пациентов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Patient'
+    post:
+      summary: Добавить нового пациента
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientInput'
+      responses:
+        '200':
+          description: Пациент создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+
+  /appointments:
+    get:
+      summary: Получить список всех записей к врачу
+      responses:
+        '200':
+          description: Список записей
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+    post:
+      summary: Создать запись к врачу
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentInput'
+      responses:
+        '200':
+          description: Запись создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+
+  /records:
+    get:
+      summary: Получить список всех медицинских карточек
+      responses:
+        '200':
+          description: Список карточек
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MedicalRecord'
+    post:
+      summary: Создать медицинскую карточку
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedicalRecordInput'
+      responses:
+        '200':
+          description: Карточка создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicalRecord'
+
+components:
+  schemas:
+    Patient:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        species:
+          type: string
+        breed:
+          type: string
+        ownerName:
+          type: string
+
+    PatientInput:
+      type: object
+      properties:
+        name:
+          type: string
+        species:
+          type: string
+        breed:
+          type: string
+        ownerName:
+          type: string
+      required:
+        - name
+        - species
+        - breed
+        - ownerName
+
+    Appointment:
+      type: object
+      properties:
+        id:
+          type: string
+        patientId:
+          type: string
+        doctorName:
+          type: string
+
+    AppointmentInput:
+      type: object
+      properties:
+        patientId:
+          type: string
+        doctorName:
+          type: string
+      required:
+        - patientId
+        - doctorName
+
+    MedicalRecord:
+      type: object
+      properties:
+        id:
+          type: string
+        patientId:
+          type: string
+        diagnosis:
+          type: string
+
+    MedicalRecordInput:
+      type: object
+      properties:
+        patientId:
+          type: string
+        diagnosis:
+          type: string
+      required:
+        - patientId
+        - diagnosis
