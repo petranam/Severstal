@@ -26,7 +26,7 @@ mvn exec:java -Dexec.mainClass="com.vetclinic.VetClinicServer"
 
 ---
 
-## 📦 Структура проекта
+## Структура проекта
 
 ```
 src/
